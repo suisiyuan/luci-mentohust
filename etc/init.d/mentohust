@@ -1,0 +1,34 @@
+#!/bin/sh /etc/rc.common
+START=50
+
+run_mentohust()
+{
+    local enable
+    config_get_bool enable $1 enable
+    
+    if [ $enable ]; then
+        local username
+        local password
+        local ifname
+        
+        config_get username $1 username
+        config_get password $1 password
+        config_get ifname $1 ifname
+        
+        /usr/bin/mentohust -u$username -p$password -nifname -a1 -d2 -b2
+
+        echo "mentohust has started."
+    fi
+}
+
+start()
+{
+    config_load mentohust
+    config_foreach run_mentohust login
+}
+
+stop()
+{
+    /usr/bin/mentohust -utest -ptest -k
+    echo "mentohust has stoped."
+}
