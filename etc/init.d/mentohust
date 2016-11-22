@@ -15,7 +15,7 @@ run_mentohust()
         config_get password $1 password
         config_get ifname $1 ifname
         
-        /usr/bin/mentohust -u$username -p$password -nifname -a1 -d2 -b2
+        /usr/bin/mentohust -u$username -p$password -n$ifname -a1 -d2 -b2
 
         echo "mentohust has started."
     fi
